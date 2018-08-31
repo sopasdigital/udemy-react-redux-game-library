@@ -1,9 +1,13 @@
 import React, { Component } from 'react';
 
+import GameList from '../Containers/GameList';
+
 export default class App extends Component {
   render() {
     return (
-      <div>React simple starter</div>
+      <div>
+        <GameList />
+      </div>
     );
   }
 }
