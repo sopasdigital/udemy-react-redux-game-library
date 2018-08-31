@@ -3,6 +3,9 @@ import React, { Component } from 'react';
 //  Import 'connect' from the 'react-redux'
 //  library  
 import { connect } from 'react-redux';
+//  Import Actions and bindActionCreators from redux
+import { selectGame } from '../../Actions/index';
+import { bindActionCreators } from 'redux';
 
 //  Creates the 'GameList' class
 class GameList extends Component {
@@ -15,7 +18,9 @@ class GameList extends Component {
     //  'li' with the 'title's of each game mapped
     return this.props.games.map((game) => {
       return (
-        <li key={game.title} className="list-group-item">{game.title}</li>
+        <li key={game.title}
+            onClick={() => this.props.selectGame(game)}
+            className="list-group-item">{game.title}</li>
       );
     });
   }
@@ -39,6 +44,15 @@ function mapStateToProps(state) {
   };
 }
 
+//  Returns as props of the 'GameList' container
+function mapDispatchToProps(dispatch) {
+  //  Whenever 'selectBook' is called, the
+  //  result is passed onto all reducers
+  return bindActionCreators({ selectGame }, dispatch);
+}
+
 //  Takes our 'mapStateToProps' function and uses
 //  redux to connect it to our 'GameList' container
-export default connect(mapStateToProps)(GameList);
+//  Also connects the 'mapDispatchToProps' to our
+//  container
+export default connect(mapStateToProps, mapDispatchToProps)(GameList);
